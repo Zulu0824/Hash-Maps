@@ -2,7 +2,7 @@ class HashMap {
   constructor() {
     this.loadFactor = 0.75;
     this.capacity = 16;
-    this.buckets = new Array(16);
+    this.buckets = new Array(this.capacity);
     this.size;
   }
 
@@ -45,7 +45,7 @@ class HashMap {
     if (!bucket) return undefined;
 
     for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i][0] === index) {
+      if (bucket[i][0] === key) {
         return bucket[i][1];
       }
     }
@@ -86,5 +86,12 @@ class HashMap {
       }
     }
     return false;
+  }
+  length(key) {
+    return this.size;
+  }
+  clear() {
+    this.buckets = new Array(this.capacity);
+    this.size = 0;
   }
 }
