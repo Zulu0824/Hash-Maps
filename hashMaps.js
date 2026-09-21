@@ -15,7 +15,6 @@ export class HashMap {
     }
     return hashCode;
   }
-
   set(key, value) {
     const index = this.hash(key);
 
@@ -34,8 +33,23 @@ export class HashMap {
     }
     this.buckets[index].push([key, value]);
     this.size++;
+
+    if (this.size / this.capacity > this.loadFactor) {
+      this.resize();
+    }
   }
 
+  resize() {
+    const oldEntries = this.entries();
+
+    this.capacity = this.capacity * 2;
+    this.buckets = new Array(this.capacity);
+    this.size = 0;
+
+    for (const [key, value] of oldEntries) {
+      this.set(key, value);
+    }
+  }
   get(key) {
     const index = this.hash(key);
     if (index < 0 || index >= this.buckets.length) {
