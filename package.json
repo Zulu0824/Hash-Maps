@@ -1,0 +1,21 @@
+{
+  "name": "hash-maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zulu0824/Hash-Maps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zulu0824/Hash-Maps/issues"
+  },
+  "homepage": "https://github.com/Zulu0824/Hash-Maps#readme"
+}
