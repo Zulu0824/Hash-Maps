@@ -107,4 +107,17 @@ class HashMap {
     }
     return keysArray;
   }
+
+  values() {
+    const valueArray = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      const bucket = this.buckets[i];
+      if (bucket) {
+        for (let j = 0; j < bucket.length; j++) {
+          valueArray.push(bucket[j][1]);
+        }
+      }
+    }
+    return valueArray;
+  }
 }
