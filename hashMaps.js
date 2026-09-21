@@ -151,3 +151,104 @@ export class HashMap {
     return entriesArray;
   }
 }
+
+export class HashSet {
+  constructor() {
+    this.loadFactor = 0.75;
+    this.capacity = 16;
+    this.buckets = new Array(this.capacity);
+    this.size = 0;
+  }
+
+  hash(key) {
+    let primeNumber = 31;
+    let hashcode = 0;
+    for (let i = 0; i < key.length; i++) {
+      hashcode = (primeNumber * hashcode + key.charCodeAt(i)) % this.capacity;
+    }
+    return hashcode;
+  }
+
+  set(key) {
+    const index = this.hash(key);
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    if (!this.buckets[index]) {
+      this.buckets[index] = [];
+    }
+    const bucket = this.buckets[index];
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i] === key) {
+        return;
+      }
+    }
+    bucket.push(key);
+    this.size++;
+
+    if (this.size / this.capacity > this.loadFactor) {
+      this.resize();
+    }
+  }
+
+  get(key) {
+    const index = this.hash(key);
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    const bucket = this.buckets[index];
+    if (!bucket) return false;
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i] === key) return true;
+    }
+    return false;
+  }
+
+  remove(key) {
+    const index = this.has(key);
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    const bucket = this.buckets[index];
+    if (!bucket) return false;
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i] === key) {
+        bucket.splic(i, 1);
+        this.size--;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  length() {
+    return sieze;
+  }
+  clear() {
+    this.buckets = this.Array(this.capacity);
+    this.size = 0;
+  }
+
+  keys() {
+    const keysArray = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      const bucket = this.buckets[i];
+      for (let j = 0; j < bucket.length; j++) {
+        keysArray.push(bucket[j]);
+      }
+    }
+    return keysArray;
+  }
+
+  resize() {
+    const oldKeys = this.keys();
+
+    this.capacity = this.capacity * 2;
+    this.buckets = new Array(this.capacity);
+    this.size = 0;
+
+    for (const key of oldKeys) {
+      this.add(key);
+    }
+  }
+}
