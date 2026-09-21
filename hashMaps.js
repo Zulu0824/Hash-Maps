@@ -87,11 +87,24 @@ class HashMap {
     }
     return false;
   }
-  length(key) {
+  length() {
     return this.size;
   }
   clear() {
     this.buckets = new Array(this.capacity);
     this.size = 0;
+  }
+
+  keys() {
+    const keysArray = [];
+    for (let i = 0; i < this.buckets.length; i++) {
+      const bucket = this.buckets[i];
+      if (bucket) {
+        for (let j = 0; j < bucket.length; j++) {
+          keysArray.push(bucket[j][0]);
+        }
+      }
+    }
+    return keysArray;
   }
 }
