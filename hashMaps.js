@@ -44,7 +44,7 @@ class HashMap {
     const bucket = this.buckets[index];
     if (!bucket) return undefined;
 
-    for (i = 0; i < bucket.length; i++) {
+    for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === index) {
         return bucket[i][1];
       }
@@ -61,8 +61,27 @@ class HashMap {
     const bucket = this.buckets[index];
     if (!bucket) return false;
 
-    for (i = 0; i < bucket.length; i++) {
+    for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  remove(key) {
+    const index = this.hash(key);
+
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+
+    const bucket = this.buckets[index];
+    if (!bucket) return false;
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === key) {
+        bucket.splice(i, 1);
+        this.size--;
         return true;
       }
     }
