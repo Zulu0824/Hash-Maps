@@ -120,4 +120,17 @@ class HashMap {
     }
     return valueArray;
   }
+  entries() {
+    const entriesArray = [];
+
+    for (let i = 0; i < this.buckets.length; i++) {
+      const bucket = this.buckets[i];
+      if (bucket) {
+        for (let j = 0; j < bucket.length; j++) {
+          entriesArray.push([bucket[j][0], bucket[j][1]]);
+        }
+      }
+    }
+    return entriesArray;
+  }
 }
